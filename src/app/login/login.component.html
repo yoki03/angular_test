@@ -1,0 +1,91 @@
+<p>login works!</p>
+<header><h4 class="text-center">MapleLabs</h4></header>
+<footer><h5>CopyRights:maplelabs.com</h5></footer>
+<div class="container">
+  <form class= "form-signin" #postForm="ngForm" (ngSubmit)="onLogin(postForm.value)">
+    <h2 class="text-center">Login</h2>
+     
+    <input
+      type="text"
+      class="form-control"
+      placeholder="User Email"
+      name="name"
+      pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+      ngModel
+      #uname="ngModel"
+      required
+      /> 
+    <div 
+      class="err"
+      *ngIf="uname.errors?.['pattern']"> 
+      Email not valid.
+    </div>
+ 
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      name="password"
+      pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$"
+      ngModel
+      #upass="ngModel"
+      required
+    /> 
+    <div 
+      class="err"
+      *ngIf="upass.errors?.['pattern']"> 
+      password not valid.
+    </div>
+  <div class="bbtn">   
+  <a>
+  <button
+    type="submit"
+    class="btn_ btn btn-lg btn-primary"
+    [disabled]="!postForm.valid"
+    >
+      sign in
+  </button>
+  </a>
+  
+  <button
+    type="button"
+    class="btn btn-primary btn-lg pull-right"
+    (click)="open(content)"
+    >
+    sign up
+  </button>
+
+  </div> 
+  
+ </form>
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form class= "form-signup" #postForm="ngForm" (ngSubmit)="onCreatePost(postForm.value)">
+      <div class="mb-3">
+        <div class="input-group">
+          <div><input id="Email" class="form-control" placeholder="user email" name="name" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" ngModel #uname="ngModel"></div>
+          <div class="err" *ngIf="uname.errors?.['pattern']"> Email not valid. </div>
+          <div><input type="password" class="form-control" placeholder="Password" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$" [(ngModel)]="cp" ngModel #upass="ngModel"/></div>
+          <div class="err" *ngIf="upass.errors?.['pattern']"> password not valid.</div>
+          <div><input type="password" class="form-control" placeholder="confirm Password" pattern="{{'^'+cp+'$'}}" ngModel #ucpass="ngModel" [ngModelOptions]="{standalone: true}"/></div>
+          <div class="err" *ngIf="ucpass.errors?.['pattern']"> password must be same. </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onCreatePost(postForm.value)">Save</button>
+  </div>
+</ng-template>
+  
+  <hr>
+  
+  <pre>{{ closeResult }}</pre>
