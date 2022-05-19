@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 export class EncDecService {
 
   Encrypt(pass: string){
-    console.log(pass);
+    //console.log(pass);
     pass=atob(pass);
-    console.log(pass);
+    //console.log(pass);
     return pass;
   }
 

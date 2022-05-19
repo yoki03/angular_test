@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
 
   onCreatePost(postData: { name: string; password: string}){
     postData.password = this.encdecServ.Encrypt(postData.password);
-    console.log(postData);
+    //console.log(postData);
     this.postdata = Object.assign(this.postdata, postData);
     const user = this.authService.authUser(postData);
-    console.log(user);
+    //console.log(user);
     if (user){
       console.log('user exist');
     } else{
@@ -47,11 +47,11 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(loginForm: { name: string; password: string}){
-    console.log(loginForm);
+    //console.log(loginForm);
     loginForm.password = this.encdecServ.Encrypt(loginForm.password);
-    console.log(loginForm);
+    //console.log(loginForm);
     const user = this.authService.authUser(loginForm);
-    console.log(user);
+    //console.log(user);
     if (user){
       console.log('login successful');
     } else{
