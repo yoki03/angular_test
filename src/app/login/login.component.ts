@@ -33,17 +33,31 @@ export class LoginComponent implements OnInit {
   postdata: any = {};
 
   onCreatePost(postData: { name: string; password: string}){
-    
     postData.password = this.encdecServ.Encrypt(postData.password);
     console.log(postData);
     this.postdata = Object.assign(this.postdata, postData);
-    const user = this.authService.existUser(postData);
+    const user = this.authService.authUser(postData);
+    console.log(user);
     if (user){
       console.log('user exist');
     } else{
       this.addpostData(this.postdata);
     }
-    //this.addpostData(this.postdata);
+    postData.password = this.encdecServ.Decrypt(postData.password);
+  }
+
+  onLogin(loginForm: { name: string; password: string}){
+    console.log(loginForm);
+    loginForm.password = this.encdecServ.Encrypt(loginForm.password);
+    console.log(loginForm);
+    const user = this.authService.authUser(loginForm);
+    console.log(user);
+    if (user){
+      console.log('login successful');
+    } else{
+      console.log('login not successful');
+    }
+    loginForm.password = this.encdecServ.Decrypt(loginForm.password);
   }
 
   addpostData(postdata: any) {
@@ -80,16 +94,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onLogin(loginForm: { name: string; password: string}){
-    loginForm.password = this.encdecServ.Encrypt(loginForm.password);
-    console.log(loginForm);
-    const user = this.authService.authUser(loginForm);
-    console.log(user);
-    if (user){
-      console.log('login successful');
-    } else{
-      console.log('login not successful');
-    }
-  }
+
 
 }
